@@ -23,21 +23,21 @@ app.get('/games', async (request, response) => {
             }
         }
     })
-    return response.json([games])
+    return response.json(games)
 })
 
 // criação de um novo anúncio
-app.post('/games/:id/ads', async(request, response) => {
+app.post('/games/:id/ads', async (request, response) => {
     const gameId = request.params.id
-    const body = request.body
+    const body: any = request.body
     
-    const ad : any = await prisma.ad.create({
+    const ad = await prisma.ad.create({
         data: {
             gameId,
             name: body.name,
             yearsPlaynig: body.yearsPlaynig,
             discord: body.discord,
-            weekDays: body.weekDay.join(','),
+            weekDays: body.weekDays.join(','),
             hourStart: convertHoursStringToMinutes(body.hourStart),
             hourEnd: convertHoursStringToMinutes(body.hourEnd),
             useVoiceChannel: body.useVoiceChannel
